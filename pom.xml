@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.epam.courses.paycom</groupId>
+    <artifactId>Payments</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>dao-jpa</module>
+        <module>model</module>
+        <module>test-db</module>
+        <module>service-api</module>
+        <module>service</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.6.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}</id>
+            <name>${project.name}</name>
+            <url>${project.baseUri}</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <org.springframework.version>5.1.4.RELEASE</org.springframework.version>
+        <slf4j-api.version>1.7.25</slf4j-api.version>
+        <logback.version>1.2.3</logback.version>
+        <junit.version>5.2.0</junit.version>
+        <mockito.vertion>2.23.4</mockito.vertion>
+        <jackson-databind.version>2.9.8</jackson-databind.version>
+        <spring-jdbc.version>5.0.5.RELEASE</spring-jdbc.version>
+        <spring-test.version>5.0.5.RELEASE</spring-test.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
+        <h2.version>1.4.197</h2.version>
+    </properties>
+
+    <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>dao-jpa</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>test-db</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.courses.paycom</groupId>
+            <artifactId>service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.vertion}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    </dependencyManagement>
+
+
+</project>
