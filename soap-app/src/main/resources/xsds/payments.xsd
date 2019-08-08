@@ -1,0 +1,183 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://payments/"
+           targetNamespace="http://payments/" elementFormDefault="qualified">
+    <xs:element name="findCompanyByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findCompanyByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyInfo" type="tns:companyInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="companyInfo">
+        <xs:sequence>
+            <xs:element name="companyId" type="xs:int"/>
+            <xs:element name="companyAccount" type="xs:string"/>
+            <xs:element name="companyName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="findAllCompaniesRequest">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="findAllCompaniesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyInfo" type="tns:companyInfo" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="serviceStatus">
+        <xs:sequence>
+            <xs:element name="statusCode" type="xs:string"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="findCompanyByAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyAccount" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findCompanyByAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyInfo" type="tns:companyInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addCompanyRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyId" type="xs:int"/>
+                <xs:element name="companyAccount" type="xs:string"/>
+                <xs:element name="companyName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addCompanyResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deleteCompanyRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deleteCompanyResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findPaymentByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findPaymentByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentInfo" type="tns:paymentInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="paymentInfo">
+        <xs:sequence>
+            <xs:element name="paymentId" type="xs:int"/>
+            <xs:element name="payerName" type="xs:string"/>
+            <xs:element name="paymentSum" type="xs:int"/>
+            <xs:element name="companyAccount" type="tns:companyInfo"/>
+            <xs:element name="paymentDate" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="companyInfoStub">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="counts" type="xs:int"/>
+            <xs:element name="amounts" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="findAllPaymentsRequest">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="findAllPaymentsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentInfo" type="tns:paymentInfo" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findAllStubsRequest">
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="findAllStubsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="companyInfoStub" type="tns:companyInfoStub" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findPaymentsByDateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="beginDate" type="xs:date"/>
+                <xs:element name="endDate" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="findPaymentsByDateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentInfo" type="tns:paymentInfo" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addPaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentId" type="xs:int"/>
+                <xs:element name="payerName" type="xs:string"/>
+                <xs:element name="paymentSum" type="xs:int"/>
+                <xs:element name="companyAccount" type="tns:companyInfo"/>
+                <xs:element name="paymentDate" type="xs:dateTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addPaymentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="paymentInfo" type="tns:paymentInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deletePaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deletePaymentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,7 +1,6 @@
 package com.epam.courses.paycom.model;
 
 import com.epam.courses.paycom.stub.CompanyStub;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

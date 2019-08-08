@@ -1,7 +1,6 @@
 package com.epam.courses.paycom.dao;
 
 import com.epam.courses.paycom.model.Company;
-
 import com.epam.courses.paycom.stub.CompanyStub;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,5 +1,6 @@
 package com.epam.courses.paycom.model;
 
+import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class Payment implements Serializable {
     private Company companyAccount;
 
     @Column(name = "payment_date")
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date paymentDate;
 

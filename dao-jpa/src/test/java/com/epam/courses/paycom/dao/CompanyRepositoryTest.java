@@ -7,24 +7,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import com.epam.courses.paycom.stub.CompanyStub;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @PropertySource("classpath:application.properties")
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-@DataJpaTest
-@Sql({"/data-script.sql"})
+@SpringBootTest(classes = TestConfig.class)
+@Transactional
+@Rollback
 public class CompanyRepositoryTest {
+
+    private static final long TOTAL_COUNT = 3;
 
     @Autowired
     CompanyRepository companyRepository;
@@ -33,7 +35,7 @@ public class CompanyRepositoryTest {
     public void findAll() {
         List<Company> companies = companyRepository.findAll();
         assertNotNull(companies);
-        assertEquals(companies.size(), 2);
+        assertEquals(companies.size(), TOTAL_COUNT);
     }
 
     @Test
@@ -59,29 +61,12 @@ public class CompanyRepositoryTest {
     public void addCompany() {
         List<Company> companiesBeforeInsert = companyRepository.findAll();
         Company company = new Company();
-        company.setCompanyId(4);
-        company.setCompanyAccount("aaa");
-        company.setCompanyName("bbb");
+        company.setCompanyAccount("account");
+        company.setCompanyName("name");
         companyRepository.save(company);
-
         List<Company> companiesAfterInsert = companyRepository.findAll();
         assertEquals(1, companiesAfterInsert.size() - companiesBeforeInsert.size());
     }
-
-    @Test
-    public void addDublicateCompany() {
-        Company company2 = new Company();
-        company2.setCompanyId(4);
-        company2.setCompanyAccount("aaa");
-        company2.setCompanyName("bbb");
-        companyRepository.save(company2);
-        company2.setCompanyId(5);
-
-        Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class, () -> {
-            companyRepository.save(company2);
-        });
-
-            }
 
     @Test
     public void findAllStubs() {
@@ -89,4 +74,12 @@ public class CompanyRepositoryTest {
         assertNotNull(stub);
         assertTrue(stub.size() > 1);}
 
+    @Test
+    public void delete() {
+        List<Company> companiesBeforeDelete = companyRepository.findAll();
+        Company company = companyRepository.findById(3).get();
+        companyRepository.deleteById(company.getCompanyId());
+        List<Company> companiesAfterDelete = companyRepository.findAll();
+        assertEquals(1, companiesBeforeDelete.size() - companiesAfterDelete.size());
+    }
 }

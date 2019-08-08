@@ -4,16 +4,19 @@ import com.epam.courses.paycom.dao.PaymentRepository;
 import com.epam.courses.paycom.model.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.sql.Date;
 import java.util.List;
 
 @Transactional
+@Service
 public class PaymentServiceImpl implements PaymentService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger (PaymentServiceImpl.class);
 
+    @Autowired
     private PaymentRepository repository;
 
     public PaymentServiceImpl(PaymentRepository repository) {

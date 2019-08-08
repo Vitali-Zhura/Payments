@@ -5,18 +5,22 @@ import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.stub.CompanyStub;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
+@Service
 public class CompanyServiceImpl implements CompanyService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyServiceImpl.class);
-
-    private CompanyRepository repository;
 
     public CompanyServiceImpl(CompanyRepository repository) {
         this.repository = repository;
     }
+
+    @Autowired
+    private CompanyRepository repository;
 
     @Override
     public List<Company> findAll() {

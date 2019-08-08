@@ -10,19 +10,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @PropertySource("classpath:application.properties")
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-@DataJpaTest
-@Sql({"/data-script.sql"})
+@SpringBootTest(classes = TestConfig.class)
+@Transactional
+@Rollback
 public class PaymentRepositoryTest {
+
+    private static final long TOTAL_COUNT = 3;
 
     @Autowired
     PaymentRepository paymentRepository;
@@ -31,7 +35,7 @@ public class PaymentRepositoryTest {
     public void findAll() {
         List<Payment> payments = paymentRepository.findAll();
         assertNotNull(payments);
-        assertEquals(payments.size(), 3);
+        assertEquals(payments.size(), TOTAL_COUNT);
     }
 
     @Test
@@ -52,8 +56,7 @@ public class PaymentRepositoryTest {
         List<Payment> paymentsBeforeInsert = paymentRepository.findAll();
         Payment payment = new Payment();
         payment.setCompanyAccount(createCompany());
-        payment.setPaymentId(7);
-        payment.setPayerName("aaa");
+        payment.setPayerName("payer");
         payment.setPaymentSum(100);
         paymentRepository.save(payment);
 
@@ -75,7 +78,7 @@ public class PaymentRepositoryTest {
     public void cancel() {
 
         List<Payment> paymentsBeforeDelete = paymentRepository.findAll();
-        Payment payment =  paymentRepository.findById(1).get();
+        Payment payment =  paymentRepository.findById(2).get();
         paymentRepository.deleteById(payment.getPaymentId());
         List<Payment> paymentsAfterDelete = paymentRepository.findAll();
         assertEquals(1, paymentsBeforeDelete.size() - paymentsAfterDelete.size());
