@@ -19,12 +19,12 @@ public class CompanyEndpoint {
 
     private static final String NAMESPACE_URI = "http://payments/";
 
+    private CompanyService companyService;
+
     @Autowired
     public CompanyEndpoint(CompanyService companyService) {
         this.companyService = companyService;
     }
-
-    private CompanyService companyService;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "findCompanyByIdRequest")
     @ResponsePayload
@@ -86,9 +86,6 @@ public class CompanyEndpoint {
         company.setCompanyAccount(request.getCompanyAccount());
         company.setCompanyName(request.getCompanyName());
         companyService.add(company);
-
-        CompanyInfo companyInfo = new CompanyInfo();
-        BeanUtils.copyProperties(company, companyInfo);
         serviceStatus.setStatusCode("SUCCESS");
         serviceStatus.setMessage("Company Added Successfully");
         response.setServiceStatus(serviceStatus);

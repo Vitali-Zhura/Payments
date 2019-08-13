@@ -4,8 +4,6 @@ import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.model.Payment;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.epam.courses.paycom.service.CompanyService;
 import com.epam.courses.paycom.service.PaymentService;
 import com.epam.courses.paycom.ws.*;
 import org.springframework.beans.BeanUtils;
@@ -19,12 +17,12 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class PaymentEndpoint {
     private static final String NAMESPACE_URI = "http://payments/";
 
+    private PaymentService paymentService;
+
     @Autowired
     public PaymentEndpoint(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
-
-    private PaymentService paymentService;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "findPaymentByIdRequest")
     @ResponsePayload
@@ -83,9 +81,6 @@ public class PaymentEndpoint {
         payment.setPaymentDate(new java.sql.Date(request.getPaymentDate().toGregorianCalendar().getTime().getTime()));
         paymentService.add(payment);
 
-        PaymentInfo paymentInfo = new PaymentInfo();
-        BeanUtils.copyProperties(payment, paymentInfo);
-        response.setPaymentInfo(paymentInfo);
         serviceStatus.setStatusCode("SUCCESS");
         serviceStatus.setMessage("Payment Added Successfully");
         response.setServiceStatus(serviceStatus);

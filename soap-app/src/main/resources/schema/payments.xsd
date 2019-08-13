@@ -162,7 +162,6 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-                <xs:element name="paymentInfo" type="tns:paymentInfo"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

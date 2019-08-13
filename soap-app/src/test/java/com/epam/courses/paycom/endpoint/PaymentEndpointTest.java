@@ -3,7 +3,6 @@ package com.epam.courses.paycom.endpoint;
 import com.epam.courses.paycom.model.Company;
 import com.epam.courses.paycom.model.Payment;
 import com.epam.courses.paycom.service.PaymentService;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -38,14 +37,12 @@ public class PaymentEndpointTest {
     private ApplicationContext applicationContext;
 
     private MockWebServiceClient mockClient;
-    private Resource xsdSchema = new ClassPathResource("xsds/payments.xsd");
+    private Resource xsdSchema = new ClassPathResource("schema/payments.xsd");
 
     @Before
     public void createClient() {
         mockClient = MockWebServiceClient.createClient(applicationContext);
-
         FIRST_PAYMENT = createPayment();
-
     }
 
     @AfterEach
@@ -166,5 +163,4 @@ public class PaymentEndpointTest {
         company.setCompanyName("bbb");
         return company;
     }
-
 }

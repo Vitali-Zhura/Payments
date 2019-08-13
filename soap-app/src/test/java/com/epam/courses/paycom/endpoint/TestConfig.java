@@ -26,14 +26,14 @@ public class TestConfig extends WsConfigurerAdapter {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(servlet, "/soapws/*");
+        return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
-    @Bean(name = "company")
+    @Bean(name = "payment")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema companySchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("CompanyPort");
-        wsdl11Definition.setLocationUri("/soapws");
+        wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://payments/");
         wsdl11Definition.setSchema(companySchema);
         return wsdl11Definition;
@@ -41,7 +41,7 @@ public class TestConfig extends WsConfigurerAdapter {
 
     @Bean
     public XsdSchema companySchema() {
-        return new SimpleXsdSchema(new ClassPathResource("/xsds/payments.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("/schema/payments.xsd"));
     }
 
     @Bean
